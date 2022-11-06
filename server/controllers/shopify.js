@@ -56,4 +56,19 @@ module.exports = ({ strapi }) => ({
       ctx.throw(404, 'Session not found');
     }
   },
+
+  async graphql(ctx) {
+    const session = _.get(ctx, 'state.shopify.session');
+    if (session) {
+      //const session = await Shopify.Utils.loadCurrentSession(req, res);
+      try {
+          const response = await Shopify.Utils.graphqlProxy(req, res);
+          res.status(200).send(response.body);
+      } catch (error) {
+          res.status(500).send(error.message);
+      }
+    } else {
+      ctx.throw(404, 'Session not found');
+    }
+  }
 });

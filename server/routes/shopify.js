@@ -30,4 +30,13 @@ module.exports = [
       policies: ['plugin::shopify.is-authenticated'],
     },
   },
+  {
+    method: 'POST',
+    path: '/shopify/graphql',
+    handler: 'shopify.graphql',
+    config: {
+      prefix: '',
+      policies: ['plugin::shopify.is-authenticated'],
+    },
+  },
 ];
